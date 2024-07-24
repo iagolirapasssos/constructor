@@ -1,0 +1,1378 @@
+css/styles.css:
+/* Estilo geral para o corpo da página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #2c2c2c;
+    color: #f1f1f1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    height: 100vh;
+}
+
+/* Estilo das abas de navegação */
+.tabs {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: #1e1e1e;
+}
+
+/* Estilo dos botões das abas */
+.tab-button {
+    background-color: #1e1e1e;
+    color: #f1f1f1;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    flex: 1;
+}
+
+.tab-button:hover {
+    background-color: #333;
+}
+
+/* Estilo do conteúdo das abas */
+.tab-content {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* Estilo específico para o visualizador (viewer) */
+#viewer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Estilo para o contêiner de eventos */
+#events {
+    width: 80%;
+    margin: 20px 0;
+}
+
+/* Estilo para eventos e ações */
+.event, .action {
+    background-color: #444;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: grab;
+}
+
+/* Estilo específico para eventos */
+.event, .sub-event {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #555;
+    flex-direction: column;
+}
+
+/* Estilo específico para ações */
+.action {
+    background-color: #666;
+}
+
+/* Estilo para subeventos */
+.sub-event {
+    background-color: #777;
+    margin-left: 20px;
+    margin-right: 10px; /* Pequena margem direita */
+    margin-top: 10px;
+    
+}
+
+/* Estilo para sub-ações */
+.sub-action {
+    background-color: #888;
+    margin-left: 20px;
+}
+
+/* Estilo do cabeçalho dos eventos e ações */
+.event-header, .action-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* Estilo para os spans nos cabeçalhos */
+.event-header span, .action-header span {
+    flex-grow: 1;
+}
+
+/* Estilo para os botões nos cabeçalhos */
+.event-header button, .action-header button {
+    background-color: #555;
+    border: none;
+    color: #f1f1f1;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.event-header button:hover, .action-header button:hover {
+    background-color: #777;
+}
+
+/* Estilo para o canvas do jogo */
+canvas {
+    border: 1px solid #f1f1f1;
+}
+
+/* Estilo para o menu de contexto */
+.context-menu {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    border: 1px solid #555;
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+.context-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.context-menu ul li {
+    padding: 10px;
+    cursor: pointer;
+    color: #f1f1f1;
+}
+
+.context-menu ul li:hover {
+    background-color: #555;
+}
+
+/* Estilo para o painel de propriedades */
+.property-panel {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    border: 1px solid #555;
+    border-radius: 5px;
+    z-index: 1000;
+    padding: 10px;
+    width: 300px;
+    color: #f1f1f1;
+}
+
+/* Estilo para os botões no painel de propriedades */
+.property-panel button {
+    background-color: #444;
+    border: none;
+    color: #f1f1f1;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.property-panel button:hover {
+    background-color: #555;
+}
+
+/* Estilo para inputs e selects no painel de propriedades */
+.property-panel input, .property-panel select {
+    width: 100%;
+    margin: 5px 0;
+    padding: 5px;
+    background-color: #444;
+    border: 1px solid #555;
+    color: #f1f1f1;
+    border-radius: 5px;
+}
+
+.property-panel label {
+    margin-top: 10px;
+}
+
+/* Estilo para o editor de frames */
+.frame-editor {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #333;
+    border: 1px solid #555;
+    border-radius: 5px;
+    z-index: 1000;
+    width: 80%;
+    height: 80%;
+    color: #f1f1f1;
+    display: flex;
+    flex-direction: column;
+    resize: both;
+    overflow: auto;
+}
+
+/* Estilo do cabeçalho do editor de frames */
+.frame-editor-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #444;
+    border-bottom: 1px solid #555;
+}
+
+/* Estilo do corpo do editor de frames */
+.frame-editor-body {
+    flex: 1;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilo do rodapé do editor de frames */
+.frame-editor-footer {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background-color: #444;
+    border-top: 1px solid #555;
+}
+
+.frame-editor-footer div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+/* Estilo dos botões no editor de frames */
+.frame-editor button {
+    background-color: #444;
+    border: none;
+    color: #f1f1f1;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.frame-editor button:hover {
+    background-color: #555;
+}
+
+/* Estilo para modais */
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background-color: #2c2c2c;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilo do conteúdo dos modais */
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+}
+
+.modal-content h3 {
+    margin-bottom: 20px;
+}
+
+.modal-content .close {
+    align-self: flex-end;
+    cursor: pointer;
+}
+
+.modal-content .close:hover {
+    color: red;
+}
+
+/* Estilo para listas dentro dos modais */
+.modal-content #event-list, .modal-content #action-list, .modal-content #object-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-content .event-item, .modal-content .action-item, .modal-content .object-item {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #444;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.modal-content .event-item:hover, .modal-content .action-item:hover, .modal-content .object-item:hover {
+    background-color: #555;
+}
+
+/* Estilo para o botão de executar o jogo */
+#execute-game-button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+#execute-game-button:hover {
+    background-color: #218838;
+}
+
+
+index.html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Game IDE</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.5.0/fabric.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+</head>
+<body>
+    <div class="tabs">
+        <button class="tab-button" onclick="showTab('viewer')">Viewer</button>
+        <button class="tab-button" onclick="showTab('editor')">Event Editor</button>
+    </div>
+    <div id="viewer" class="tab-content">
+        <h2>Game Viewer</h2>
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        <button id="execute-game-button">Execute Game</button>
+    </div>
+    <div id="editor" class="tab-content" style="display:none;">
+        <h2>Event Editor</h2>
+        <div id="events">
+            <!-- Events will be added here dynamically -->
+        </div>
+        <button id="add-event-button">Add Event</button>
+        <button id="add-action-button">Add Action</button>
+    </div>
+    <div id="event-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeEventModal()">&times;</span>
+            <h3>Select an Event</h3>
+            <label for="event-object-id">Object ID:</label>
+            <input type="text" id="event-object-id">
+            <div id="event-list">
+                <!-- List of events will be populated here -->
+            </div>
+        </div>
+    </div>
+    <div id="action-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeActionModal()">&times;</span>
+            <h3>Select an Action</h3>
+            <label for="action-object-id">Object ID:</label>
+            <input type="text" id="action-object-id">
+            <div id="action-list">
+                <!-- List of actions will be populated here -->
+            </div>
+        </div>
+    </div>
+    <div id="context-menu" class="context-menu">
+        <ul>
+            <li onclick="addImage()">Add Image</li>
+            <li onclick="deleteObject()">Delete</li>
+            <li onclick="resizeObject()">Resize</li>
+            <li onclick="positionObject()">Position</li>
+            <li onclick="addFrames()">Add Frames</li>
+            <li onclick="showInsertObjectModal()">Insert Object</li>
+        </ul>
+    </div>
+    <div id="property-panel" class="property-panel">
+        <button onclick="closePropertyPanel()">Close</button>
+        <h3>Object Properties</h3>
+        <div id="properties">
+            <!-- Properties will be added here dynamically -->
+        </div>
+    </div>
+    <div id="frame-editor" class="frame-editor" style="display: none;">
+        <div class="frame-editor-header">
+            <button onclick="closeFrameEditor()">Close</button>
+            <h3>Frame Editor</h3>
+        </div>
+        <div class="frame-editor-body">
+            <canvas id="frameCanvas" width="800" height="600"></canvas>
+        </div>
+        <div class="frame-editor-footer">
+            <div>
+                <label for="shape-fill">Fill Color:</label>
+                <input type="color" id="shape-fill">
+                <label for="shape-stroke">Stroke Color:</label>
+                <input type="color" id="shape-stroke">
+                <label for="shape-stroke-width">Stroke Width:</label>
+                <input type="number" id="shape-stroke-width" min="1" max="10">
+                <label for="shape-rotation">Rotation:</label>
+                <input type="number" id="shape-rotation" min="0" max="360">
+            </div>
+            <button onclick="addFrame()">Add Frame</button>
+            <button onclick="applyChanges()">Apply Changes</button>
+            <button onclick="saveFrames()">Save</button>
+        </div>
+    </div>
+    <div id="object-selection-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeObjectSelectionModal()">&times;</span>
+            <h3>Select an Object</h3>
+            <div id="object-list">
+                <!-- List of objects will be populated here -->
+            </div>
+        </div>
+    </div>
+    <div id="insert-object-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeInsertObjectModal()">&times;</span>
+            <h3>Insert New Object</h3>
+            <label for="object-id">Object ID:</label>
+            <input type="text" id="object-id">
+            <label for="object-name">Name:</label>
+            <input type="text" id="object-name">
+            <label for="object-width">Width:</label>
+            <input type="number" id="object-width" value="50">
+            <label for="object-height">Height:</label>
+            <input type="number" id="object-height" value="50">
+            <label for="object-x">Position X:</label>
+            <input type="number" id="object-x" value="0">
+            <label for="object-y">Position Y:</label>
+            <input type="number" id="object-y" value="0">
+            <button onclick="insertObject()">Insert</button>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/events.js"></script>
+    <script src="js/actions.js"></script>
+</body>
+</html>
+
+
+js/actions.js:
+function initializeActions() {
+    populateActionList();
+}
+
+function createActionBlock(actionType, objectId) {
+    const actionBlock = document.createElement("div");
+    actionBlock.className = "action";
+    actionBlock.innerHTML = `
+        <div class="action-header">
+            <span class="action-type">${actionType}</span>
+            <span class="action-object-id">Object ID: ${objectId}</span>
+            <button onclick="deleteAction(this)">Delete</button>
+        </div>
+    `;
+    return actionBlock;
+}
+
+function addAction(parentEvent, actionType) {
+    const objectId = document.getElementById("action-object-id").value;
+    if (!objectId) {
+        alert("Please enter an Object ID");
+        return;
+    }
+    const actionsContainer = parentEvent.querySelector(".actions-container");
+    const actionBlock = createActionBlock(actionType, objectId);
+    actionsContainer.appendChild(actionBlock);
+}
+
+function deleteAction(button) {
+    const actionBlock = button.parentElement.parentElement;
+    actionBlock.remove();
+}
+
+function processActions(actionBlocks, e, targetObject, isLoop = false) {
+    const delay = isLoop ? 100 : 0;
+    Array.from(actionBlocks).forEach((actionBlock, index) => {
+        setTimeout(() => {
+            const actionType = actionBlock.querySelector(".action-type").textContent;
+            const objectId = actionBlock.querySelector(".action-object-id").textContent.split(": ")[1];
+            if (targetObject.id !== objectId) return;
+
+            if (actionType === "Move Right") {
+                targetObject.x += 10;
+            } else if (actionType === "Move Left") {
+                targetObject.x -= 10;
+            } else if (actionType === "Move Up") {
+                targetObject.y -= 10;
+            } else if (actionType === "Move Down") {
+                targetObject.y += 10;
+            } else if (actionType === "Change Color") {
+                targetObject.color = '#' + Math.floor(Math.random() * 16777215).toString(16); // Random color
+            } else if (actionType === "Play Sound") {
+                const audio = new Audio('path/to/sound/file.mp3');
+                audio.play();
+            }
+            drawObject(targetObject);
+        }, delay * index);
+    });
+}
+
+
+js/events.js:
+const eventsContainer = document.getElementById("events");
+const addEventButton = document.getElementById("add-event-button");
+const addActionButton = document.getElementById("add-action-button");
+const executeGameButton = document.getElementById("execute-game-button");
+const eventModal = document.getElementById("event-modal");
+const actionModal = document.getElementById("action-modal");
+
+let eventsList = [];
+
+function initializeEvents() {
+    addEventButton.addEventListener("click", function() {
+        showEventModal();
+    });
+
+    addActionButton.addEventListener("click", function() {
+        showActionModal();
+    });
+
+    executeGameButton.addEventListener("click", function() {
+        executeGame();
+    });
+
+    document.addEventListener("keydown", handleEvents);
+}
+
+function handleEvents(e) {
+    eventsList.forEach(eventBlock => {
+        const eventType = eventBlock.querySelector(".event-type").textContent;
+        const objectId = eventBlock.querySelector(".event-object-id").textContent.replace("Object ID: ", "");
+        const targetObject = objects.find(obj => obj.id === objectId);
+        if (!targetObject) return;
+
+        if (eventType === "Key Press" && e && e.key && e.key.startsWith("Arrow")) {
+            processActions(eventBlock.querySelector(".actions-container").children, e, targetObject);
+        } else if (eventType === "Loop") {
+            const loopCountElement = eventBlock.querySelector(".loop-count");
+            const loopForeverElement = eventBlock.querySelector(".loop-forever");
+            const loopCount = loopCountElement ? parseInt(loopCountElement.value) : 1;
+            const loopForever = loopForeverElement ? loopForeverElement.checked : false;
+            if (loopForever) {
+                let stop = false;
+                while (!stop) {
+                    processActions(eventBlock.querySelector(".actions-container").children, e, targetObject, true);
+                }
+            } else {
+                for (let i = 0; i < loopCount; i++) {
+                    processActions(eventBlock.querySelector(".actions-container").children, e, targetObject, true);
+                }
+            }
+        } else if (eventType === "Mouse Click" && e.type === "click") {
+            processActions(eventBlock.querySelector(".actions-container").children, e, targetObject);
+        } else if (eventType === "Timer") {
+            const timerDurationElement = eventBlock.querySelector(".timer-duration");
+            const timerDuration = timerDurationElement ? parseInt(timerDurationElement.value) : 1000;
+            setInterval(() => {
+                processActions(eventBlock.querySelector(".actions-container").children, e, targetObject);
+            }, timerDuration);
+        }
+    });
+    drawObjects(); // Redesenha todos os objetos após processar os eventos
+}
+
+function createEventBlock(eventType, objectId) {
+    const eventBlock = document.createElement("div");
+    eventBlock.className = "event";
+    const eventId = `event-${Date.now()}`;
+    let eventContent = `
+        <div class="event-header">
+            <span class="event-type">${eventType}</span>
+            <span class="event-object-id">Object ID: ${objectId}</span>
+            <button onclick="deleteEvent(this)">Delete</button>
+            <button onclick="showAddSubEventModal(this)">Add Sub-Event</button>
+            <button onclick="showAddActionModal(this)">Add Action</button>
+        </div>
+        <div class="sub-events-container"></div>
+        <div class="actions-container"></div>
+    `;
+    if (eventType === "Loop") {
+        eventContent += `
+            <div class="loop-settings">
+                <label for="${eventId}-loop-count">Repetitions:</label>
+                <input type="number" id="${eventId}-loop-count" class="loop-count" value="1" min="1">
+                <label for="${eventId}-loop-forever">
+                    <input type="checkbox" id="${eventId}-loop-forever" class="loop-forever"> Infinite
+                </label>
+            </div>
+        `;
+    } else if (eventType === "Timer") {
+        eventContent += `
+            <div class="timer-settings">
+                <label for="${eventId}-timer-duration">Duration (ms):</label>
+                <input type="number" id="${eventId}-timer-duration" class="timer-duration" value="1000" min="100">
+            </div>
+        `;
+    }
+    eventBlock.innerHTML = eventContent;
+
+    new Sortable(eventBlock.querySelector(".actions-container"), {
+        group: {
+            name: "actions",
+            put: true,
+            pull: true
+        },
+        animation: 150,
+        fallbackOnBody: true,
+        swapThreshold: 0.65
+    });
+    new Sortable(eventBlock.querySelector(".sub-events-container"), {
+        group: {
+            name: "events",
+            put: true,
+            pull: true
+        },
+        animation: 150,
+        fallbackOnBody: true,
+        swapThreshold: 0.65
+    });
+    return eventBlock;
+}
+
+function addEvent(eventType) {
+    const objectId = document.getElementById("event-object-id").value;
+    if (!objectId) {
+        alert("Please enter an Object ID");
+        return;
+    }
+    const eventBlock = createEventBlock(eventType, objectId);
+    eventsContainer.appendChild(eventBlock);
+    eventsList.push(eventBlock);
+}
+
+function addSubEvent(parentEvent, eventType) {
+    const objectId = document.getElementById("event-object-id").value;
+    if (!objectId) {
+        alert("Please enter an Object ID");
+        return;
+    }
+    const subEventBlock = createEventBlock(eventType, objectId);
+    subEventBlock.className = "sub-event";
+    parentEvent.querySelector(".sub-events-container").appendChild(subEventBlock);
+}
+
+function deleteEvent(button) {
+    const eventBlock = button.parentElement.parentElement;
+    eventBlock.remove();
+    eventsList = eventsList.filter(event => event !== eventBlock);
+}
+
+
+js/game.js:
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+const frameCanvasElement = document.getElementById('frameCanvas');
+const frameCanvas = new fabric.Canvas(frameCanvasElement);
+
+let objects = [];
+
+function initializeGame() {
+    drawObjects();
+}
+
+function generateUniqueId() {
+    return 'id-' + Math.random().toString(36).substr(2, 16);
+}
+
+function drawObjects() {
+    // Limpa o canvas antes de desenhar os objetos novamente
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    objects.forEach(obj => {
+        drawObject(obj);
+    });
+}
+
+function drawObject(obj) {
+    ctx.fillStyle = obj.color;
+    ctx.fillRect(obj.x, obj.y, obj.width, obj.height);
+}
+
+function updateProperty(id, property, value) {
+    const targetObject = objects.find(obj => obj.id === id);
+    if (targetObject) {
+        targetObject[property] = property === "color" ? value : parseInt(value, 10);
+        drawObjects();
+    }
+}
+
+function executeGame() {
+    handleEvents({});  // Ensure `handleEvents` is called with a default event object
+}
+
+
+js/main.js:
+document.addEventListener("DOMContentLoaded", function() {
+    initializeApp();
+});
+
+function initializeApp() {
+    initializeUI();
+    initializeGame();
+    initializeEvents();
+    initializeActions();
+}
+
+
+js/scripts.js:
+document.addEventListener("DOMContentLoaded", function() {
+    const eventsContainer = document.getElementById("events");
+    const addEventButton = document.getElementById("add-event-button");
+    const addActionButton = document.getElementById("add-action-button");
+    const executeGameButton = document.getElementById("execute-game-button");
+    const eventModal = document.getElementById("event-modal");
+    const actionModal = document.getElementById("action-modal");
+    const objectSelectionModal = document.getElementById("object-selection-modal");
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+    const contextMenu = document.getElementById("context-menu");
+    const propertyPanel = document.getElementById("property-panel");
+    const propertiesContainer = document.getElementById("properties");
+    const frameEditor = document.getElementById("frame-editor");
+    const frameCanvasElement = document.getElementById('frameCanvas');
+    const frameCanvas = new fabric.Canvas(frameCanvasElement);
+
+    let player = {
+        id: generateUniqueId(),
+        x: 50,
+        y: 50,
+        size: 20,
+        color: "#0000FF" // Use hexadecimal format for colors
+    };
+
+    let selectedObject = null;
+    let events = [];
+
+    function generateUniqueId() {
+        return 'id-' + Math.random().toString(36).substr(2, 16);
+    }
+
+    function drawPlayer() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = player.color;
+        ctx.fillRect(player.x, player.y, player.size, player.size);
+    }
+
+    function createEventBlock(eventType) {
+        const eventBlock = document.createElement("div");
+        eventBlock.className = "event";
+        const eventId = `event-${Date.now()}`;
+        let eventContent = `
+            <div class="event-header">
+                <span class="event-type">${eventType}</span>
+                <button onclick="deleteEvent(this)">Delete</button>
+                <button onclick="showAddSubEventModal(this)">Add Sub-Event</button>
+                <button onclick="showAddActionModal(this)">Add Action</button>
+            </div>
+            <div class="sub-events-container"></div>
+            <div class="actions-container"></div>
+        `;
+        if (eventType === "Loop") {
+            eventContent += `
+                <div class="loop-settings">
+                    <label for="${eventId}-loop-count">Repetitions:</label>
+                    <input type="number" id="${eventId}-loop-count" class="loop-count" value="1" min="1">
+                    <label for="${eventId}-loop-forever">
+                        <input type="checkbox" id="${eventId}-loop-forever" class="loop-forever"> Infinite
+                    </label>
+                </div>
+            `;
+        }
+        eventBlock.innerHTML = eventContent;
+
+        new Sortable(eventBlock.querySelector(".actions-container"), {
+            group: {
+                name: "actions",
+                put: true,
+                pull: true
+            },
+            animation: 150,
+            fallbackOnBody: true,
+            swapThreshold: 0.65
+        });
+        new Sortable(eventBlock.querySelector(".sub-events-container"), {
+            group: {
+                name: "events",
+                put: true,
+                pull: true
+            },
+            animation: 150,
+            fallbackOnBody: true,
+            swapThreshold: 0.65
+        });
+        return eventBlock;
+    }
+
+    function createActionBlock(actionType) {
+        const actionBlock = document.createElement("div");
+        actionBlock.className = "action";
+        actionBlock.innerHTML = `
+            <div class="action-header">
+                <span class="action-type">${actionType}</span>
+                <button onclick="deleteAction(this)">Delete</button>
+            </div>
+        `;
+        return actionBlock;
+    }
+
+    window.addEvent = function(eventType) {
+        const eventBlock = createEventBlock(eventType);
+        eventsContainer.appendChild(eventBlock);
+        events.push(eventBlock);
+    }
+
+    window.addSubEvent = function(parentEvent, eventType) {
+        const subEventBlock = createEventBlock(eventType);
+        subEventBlock.className = "sub-event";
+        parentEvent.querySelector(".sub-events-container").appendChild(subEventBlock);
+    }
+
+    window.addAction = function(parentEvent, actionType) {
+        const actionsContainer = parentEvent.querySelector(".actions-container");
+        const actionBlock = createActionBlock(actionType);
+        actionsContainer.appendChild(actionBlock);
+    }
+
+    window.deleteEvent = function(button) {
+        const eventBlock = button.parentElement.parentElement;
+        eventBlock.remove();
+        events = events.filter(event => event !== eventBlock);
+    }
+
+    window.deleteAction = function(button) {
+        const actionBlock = button.parentElement.parentElement;
+        actionBlock.remove();
+    }
+
+    function handleEvents() {
+        document.addEventListener("keydown", function(e) {
+            events.forEach(eventBlock => {
+                const eventType = eventBlock.querySelector(".event-type").textContent;
+                if (eventType === "Key Press" && e.key.startsWith("Arrow")) {
+                    processActions(eventBlock.querySelector(".actions-container").children, e);
+                } else if (eventType === "Loop") {
+                    const loopCountElement = eventBlock.querySelector(".loop-count");
+                    const loopForeverElement = eventBlock.querySelector(".loop-forever");
+                    const loopCount = loopCountElement ? parseInt(loopCountElement.value) : 1;
+                    const loopForever = loopForeverElement ? loopForeverElement.checked : false;
+                    if (loopForever) {
+                        let stop = false;
+                        while (!stop) {
+                            processActions(eventBlock.querySelector(".actions-container").children, e, true);
+                        }
+                    } else {
+                        for (let i = 0; i < loopCount; i++) {
+                            processActions(eventBlock.querySelector(".actions-container").children, e, true);
+                        }
+                    }
+                }
+            });
+            drawPlayer();
+        });
+    }
+
+    function processActions(actionBlocks, e, isLoop = false) {
+        const delay = isLoop ? 100 : 0;
+        Array.from(actionBlocks).forEach((actionBlock, index) => {
+            setTimeout(() => {
+                const actionType = actionBlock.querySelector(".action-type").textContent;
+                if (actionType === "Move Right" && e.key === "ArrowRight") {
+                    player.x += 10;
+                } else if (actionType === "Move Left" && e.key === "ArrowLeft") {
+                    player.x -= 10;
+                } else if (actionType === "Move Up" && e.key === "ArrowUp") {
+                    player.y -= 10;
+                } else if (actionType === "Move Down" && e.key === "ArrowDown") {
+                    player.y += 10;
+                }
+                drawPlayer();
+            }, delay * index);
+        });
+    }
+
+    function showContextMenu(event) {
+        event.preventDefault();
+        contextMenu.style.top = `${event.clientY}px`;
+        contextMenu.style.left = `${event.clientX}px`;
+        contextMenu.style.display = "block";
+    }
+
+    function hideContextMenu() {
+        contextMenu.style.display = "none";
+    }
+
+    function showPropertyPanel() {
+        propertiesContainer.innerHTML = `
+            <label for="x">X:</label>
+            <input type="number" id="x" value="${player.x}" onchange="updateProperty('${player.id}', 'x', this.value)">
+            <label for="y">Y:</label>
+            <input type="number" id="y" value="${player.y}" onchange="updateProperty('${player.id}', 'y', this.value)">
+            <label for="size">Size:</label>
+            <input type="number" id="size" value="${player.size}" onchange="updateProperty('${player.id}', 'size', this.value)">
+            <label for="color">Color:</label>
+            <input type="color" id="color" value="${player.color}" onchange="updateProperty('${player.id}', 'color', this.value)">
+        `;
+        propertyPanel.style.display = "block";
+    }
+
+    window.closeEventModal = function() {
+        eventModal.style.display = "none";
+    }
+
+    window.closeActionModal = function() {
+        actionModal.style.display = "none";
+    }
+
+    window.closeObjectSelectionModal = function() {
+        objectSelectionModal.style.display = "none";
+    }
+
+    window.showEventModal = function() {
+        eventModal.style.display = "block";
+    }
+
+    window.showActionModal = function() {
+        actionModal.style.display = "block";
+    }
+
+    window.showObjectSelectionModal = function() {
+        objectSelectionModal.style.display = "block";
+    }
+
+    window.showAddSubEventModal = function(button) {
+        const parentEvent = button.parentElement.parentElement;
+        showEventModal();
+        const eventItems = document.querySelectorAll("#event-list .event-item");
+        eventItems.forEach(item => {
+            item.onclick = function() {
+                const eventType = item.textContent;
+                addSubEvent(parentEvent, eventType);
+                closeEventModal();
+            };
+        });
+    }
+
+    window.showAddActionModal = function(button) {
+        const parentEvent = button.parentElement.parentElement;
+        showActionModal();
+        const actionItems = document.querySelectorAll("#action-list .action-item");
+        actionItems.forEach(item => {
+            item.onclick = function() {
+                const actionType = item.textContent;
+                addAction(parentEvent, actionType);
+                closeActionModal();
+            };
+        });
+    }
+
+    function populateEventList() {
+        const eventList = document.getElementById("event-list");
+        const events = ["Key Press", "Collision", "Loop"];
+        events.forEach(event => {
+            const eventItem = document.createElement("div");
+            eventItem.className = "event-item";
+            eventItem.textContent = event;
+            eventItem.onclick = function() {
+                addEvent(event);
+                closeEventModal();
+            };
+            eventList.appendChild(eventItem);
+        });
+    }
+
+    function populateActionList() {
+        const actionList = document.getElementById("action-list");
+        const actions = ["Move Right", "Move Left", "Move Up", "Move Down"];
+        actions.forEach(action => {
+            const actionItem = document.createElement("div");
+            actionItem.className = "action-item";
+            actionItem.textContent = action;
+            actionItem.onclick = function() {
+                addAction(action);
+                closeActionModal();
+            };
+            actionList.appendChild(actionItem);
+        });
+    }
+
+    function populateObjectList() {
+        const objectList = document.getElementById("object-list");
+        const objects = ["Object 1", "Object 2", "Object 3"];
+        objects.forEach(object => {
+            const objectItem = document.createElement("div");
+            objectItem.className = "object-item";
+            objectItem.textContent = object;
+            objectItem.onclick = function() {
+                alert(`Selected ${object}`);
+                closeObjectSelectionModal();
+            };
+            objectList.appendChild(objectItem);
+        });
+    }
+
+    window.closePropertyPanel = function() {
+        propertyPanel.style.display = "none";
+    }
+
+    window.addImage = function() {
+        alert("Add Image functionality to be implemented");
+        hideContextMenu();
+    }
+
+    window.deleteObject = function() {
+        alert("Delete Object functionality to be implemented");
+        hideContextMenu();
+    }
+
+    window.resizeObject = function() {
+        alert("Resize Object functionality to be implemented");
+        hideContextMenu();
+    }
+
+    window.positionObject = function() {
+        alert("Position Object functionality to be implemented");
+        hideContextMenu();
+    }
+
+    window.insertObject = function() {
+        const newObject = new fabric.Rect({
+            left: Math.random() * frameCanvas.width,
+            top: Math.random() * frameCanvas.height,
+            fill: '#'+Math.floor(Math.random()*16777215).toString(16),
+            width: 50,
+            height: 50
+        });
+        frameCanvas.add(newObject);
+        hideContextMenu();
+    }
+
+    window.addFrames = function() {
+        frameEditor.style.display = "block";
+        hideContextMenu();
+        // Initialize Fabric.js canvas with some sample content
+        frameCanvas.clear();
+        const rect = new fabric.Rect({
+            left: 100,
+            top: 100,
+            fill: '#ff0000', // Use hexadecimal format for colors
+            width: 50,
+            height: 50
+        });
+        frameCanvas.add(rect);
+    }
+
+    window.closeFrameEditor = function() {
+        frameEditor.style.display = "none";
+    }
+
+    window.addFrame = function() {
+        const rect = new fabric.Rect({
+            left: 100,
+            top: 100,
+            fill: '#ff0000', // Use hexadecimal format for colors
+            width: 50,
+            height: 50
+        });
+        frameCanvas.add(rect);
+    }
+
+    window.applyChanges = function() {
+        const activeObject = frameCanvas.getActiveObject();
+        if (activeObject) {
+            activeObject.set({
+                fill: document.getElementById('shape-fill').value,
+                stroke: document.getElementById('shape-stroke').value,
+                strokeWidth: parseInt(document.getElementById('shape-stroke-width').value, 10),
+                angle: parseInt(document.getElementById('shape-rotation').value, 10)
+            });
+            frameCanvas.renderAll();
+        }
+    }
+
+    window.saveFrames = function() {
+        const objects = frameCanvas.getObjects();
+        if (objects.length > 0) {
+            const object = objects[0];  // Use the first object for simplicity
+            player.color = object.fill;
+            player.size = object.width;
+            drawPlayer();
+            frameEditor.style.display = "none";
+        }
+    }
+
+    window.updateProperty = function(id, property, value) {
+        if (id === player.id) {
+            player[property] = property === "color" ? value : parseInt(value, 10);
+            drawPlayer();
+        }
+    }
+
+    canvas.addEventListener("contextmenu", function(event) {
+        showContextMenu(event);
+        selectedObject = player;  // For simplicity, selecting the player object
+    });
+
+    canvas.addEventListener("click", function(event) {
+        if (event.button === 0) {
+            showPropertyPanel();
+        }
+    });
+
+    document.addEventListener("click", function(event) {
+        if (!contextMenu.contains(event.target)) {
+            hideContextMenu();
+        }
+    });
+
+    addEventButton.addEventListener("click", function() {
+        showEventModal();
+    });
+
+    addActionButton.addEventListener("click", function() {
+        showActionModal();
+    });
+
+    executeGameButton.addEventListener("click", function() {
+        executeGame();
+    });
+
+    function executeGame() {
+        drawPlayer();
+        handleEvents();
+    }
+
+    drawPlayer();
+    populateEventList();
+    populateActionList();
+    populateObjectList();
+});
+
+function showTab(tabName) {
+    const tabs = document.querySelectorAll(".tab-content");
+    tabs.forEach(tab => {
+        tab.style.display = "none";
+    });
+    document.getElementById(tabName).style.display = "flex";
+}
+
+
+
+js/ui.js:
+const contextMenu = document.getElementById("context-menu");
+const propertyPanel = document.getElementById("property-panel");
+const propertiesContainer = document.getElementById("properties");
+const objectSelectionModal = document.getElementById("object-selection-modal");
+const insertObjectModal = document.getElementById("insert-object-modal");
+
+function initializeUI() {
+    document.addEventListener("click", function(event) {
+        if (!contextMenu.contains(event.target)) {
+            hideContextMenu();
+        }
+    });
+
+    canvas.addEventListener("contextmenu", function(event) {
+        showContextMenu(event);
+        selectedObject = objects.find(obj => {
+            return event.clientX >= obj.x && event.clientX <= obj.x + obj.size &&
+                   event.clientY >= obj.y && event.clientY <= obj.y + obj.size;
+        });
+    });
+
+    canvas.addEventListener("click", function(event) {
+        if (event.button === 0 && selectedObject) {
+            showPropertyPanel(selectedObject);
+        }
+    });
+
+    populateEventList();
+    populateObjectList();
+}
+
+function showTab(tabName) {
+    const tabs = document.querySelectorAll(".tab-content");
+    tabs.forEach(tab => {
+        tab.style.display = "none";
+    });
+    document.getElementById(tabName).style.display = "flex";
+}
+
+function showContextMenu(event) {
+    event.preventDefault();
+    contextMenu.style.top = `${event.clientY}px`;
+    contextMenu.style.left = `${event.clientX}px`;
+    contextMenu.style.display = "block";
+}
+
+function hideContextMenu() {
+    contextMenu.style.display = "none";
+}
+
+function showPropertyPanel(obj) {
+    propertiesContainer.innerHTML = `
+        <label for="x">X:</label>
+        <input type="number" id="x" value="${obj.x}" onchange="updateProperty('${obj.id}', 'x', this.value)">
+        <label for="y">Y:</label>
+        <input type="number" id="y" value="${obj.y}" onchange="updateProperty('${obj.id}', 'y', this.value)">
+        <label for="size">Size:</label>
+        <input type="number" id="size" value="${obj.size}" onchange="updateProperty('${obj.id}', 'size', this.value)">
+        <label for="color">Color:</label>
+        <input type="color" id="color" value="${obj.color}" onchange="updateProperty('${obj.id}', 'color', this.value)">
+    `;
+    propertyPanel.style.display = "block";
+}
+
+function closePropertyPanel() {
+    propertyPanel.style.display = "none";
+}
+
+function closeEventModal() {
+    eventModal.style.display = "none";
+}
+
+function closeActionModal() {
+    actionModal.style.display = "none";
+}
+
+function closeObjectSelectionModal() {
+    objectSelectionModal.style.display = "none";
+}
+
+function showEventModal() {
+    eventModal.style.display = "block";
+}
+
+function showActionModal() {
+    actionModal.style.display = "block";
+}
+
+function showObjectSelectionModal() {
+    objectSelectionModal.style.display = "block";
+}
+
+function showInsertObjectModal() {
+    insertObjectModal.style.display = "block";
+}
+
+function closeInsertObjectModal() {
+    insertObjectModal.style.display = "none";
+}
+
+function showAddSubEventModal(button) {
+    const parentEvent = button.parentElement.parentElement;
+    showEventModal();
+    const eventItems = document.querySelectorAll("#event-list .event-item");
+    eventItems.forEach(item => {
+        item.onclick = function() {
+            const eventType = item.textContent;
+            addSubEvent(parentEvent, eventType);
+            closeEventModal();
+        };
+    });
+}
+
+function showAddActionModal(button) {
+    const parentEvent = button.parentElement.parentElement;
+    showActionModal();
+    const actionItems = document.querySelectorAll("#action-list .action-item");
+    actionItems.forEach(item => {
+        item.onclick = function() {
+            const actionType = item.textContent;
+            addAction(parentEvent, actionType);
+            closeActionModal();
+        };
+    });
+}
+
+function populateEventList() {
+    const eventList = document.getElementById("event-list");
+    const events = ["Key Press", "Collision", "Loop", "Mouse Click", "Timer"];
+    events.forEach(event => {
+        const eventItem = document.createElement("div");
+        eventItem.className = "event-item";
+        eventItem.textContent = event;
+        eventItem.onclick = function() {
+            addEvent(event);
+            closeEventModal();
+        };
+        eventList.appendChild(eventItem);
+    });
+}
+
+function populateObjectList() {
+    const objectList = document.getElementById("object-list");
+    const objects = ["Object 1", "Object 2", "Object 3"];
+    objects.forEach(object => {
+        const objectItem = document.createElement("div");
+        objectItem.className = "object-item";
+        objectItem.textContent = object;
+        objectItem.onclick = function() {
+            alert(`Selected ${object}`);
+            closeObjectSelectionModal();
+        };
+        objectList.appendChild(objectItem);
+    });
+}
+
+function populateActionList() {
+    const actionList = document.getElementById("action-list");
+    const actions = ["Move Right", "Move Left", "Move Up", "Move Down", "Change Color", "Play Sound"];
+    actions.forEach(action => {
+        const actionItem = document.createElement("div");
+        actionItem.className = "action-item";
+        actionItem.textContent = action;
+        actionItem.onclick = function() {
+            addAction(action);
+            closeActionModal();
+        };
+        actionList.appendChild(actionItem);
+    });
+}
+
+window.insertObject = function() {
+    const id = document.getElementById('object-id').value;
+    const name = document.getElementById('object-name').value;
+    const width = parseInt(document.getElementById('object-width').value, 10);
+    const height = parseInt(document.getElementById('object-height').value, 10);
+    const x = parseInt(document.getElementById('object-x').value, 10);
+    const y = parseInt(document.getElementById('object-y').value, 10);
+
+    if (!id || !name || isNaN(width) || isNaN(height) || isNaN(x) || isNaN(y)) {
+        alert("Please fill out all fields correctly.");
+        return;
+    }
+
+    const newObject = {
+        id: id,
+        name: name,
+        x: x,
+        y: y,
+        width: width,
+        height: height,
+        color: '#' + Math.floor(Math.random() * 16777215).toString(16)
+    };
+
+    objects.push(newObject);
+    drawObjects();
+    closeInsertObjectModal();
+};
+
+

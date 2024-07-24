@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Game IDE</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.5.0/fabric.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+</head>
+<body>
+    <div class="tabs">
+        <button class="tab-button" onclick="showTab('viewer')">Viewer</button>
+        <button class="tab-button" onclick="showTab('editor')">Event Editor</button>
+    </div>
+    <div id="viewer" class="tab-content">
+        <h2>Game Viewer</h2>
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        <button id="execute-game-button">Execute Game</button>
+    </div>
+    <div id="editor" class="tab-content" style="display:none;">
+        <h2>Event Editor</h2>
+        <div id="events">
+            <!-- Events will be added here dynamically -->
+        </div>
+        <button id="add-event-button">Add Event</button>
+        <button id="add-action-button">Add Action</button>
+    </div>
+    <div id="event-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeEventModal()">&times;</span>
+            <h3>Select an Event</h3>
+            <label for="event-object-id">Object ID:</label>
+            <input type="text" id="event-object-id">
+            <div id="event-list">
+                <!-- List of events will be populated here -->
+            </div>
+        </div>
+    </div>
+    <div id="action-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeActionModal()">&times;</span>
+            <h3>Select an Action</h3>
+            <label for="action-object-id">Object ID:</label>
+            <input type="text" id="action-object-id">
+            <div id="action-list">
+                <!-- List of actions will be populated here -->
+            </div>
+        </div>
+    </div>
+    <div id="context-menu" class="context-menu">
+        <ul id="default-context-menu">
+            <li onclick="showInsertObjectModal()">Insert Object</li>
+        </ul>
+        <ul id="object-context-menu" style="display: none;">
+            <li onclick="addAnimation()">Add Animation</li>
+            <li onclick="changeObjectShape()">Change Shape</li>
+            <li onclick="changeObjectColor()">Change Color</li>
+            <li onclick="addFrames()">Add Frames</li>
+            <li onclick="positionObject()">Position</li>
+            <li onclick="resizeObject()">Resize</li>
+            <li onclick="deleteObject()">Delete</li>
+            <li onclick="addImage()">Add Image</li>
+        </ul>
+    </div>
+    <div id="property-panel" class="property-panel">
+        <button onclick="closePropertyPanel()">Close</button>
+        <h3>Object Properties</h3>
+        <div id="properties">
+            <!-- Properties will be added here dynamically -->
+        </div>
+    </div>
+    <div id="frame-editor" class="frame-editor" style="display: none;">
+        <div class="frame-editor-header">
+            <button onclick="closeFrameEditor()">Close</button>
+            <h3>Frame Editor</h3>
+        </div>
+        <div class="frame-editor-body">
+            <canvas id="frameCanvas" width="800" height="600"></canvas>
+        </div>
+        <div class="frame-editor-footer">
+            <div>
+                <label for="shape-fill">Fill Color:</label>
+                <input type="color" id="shape-fill">
+                <label for="shape-stroke">Stroke Color:</label>
+                <input type="color" id="shape-stroke">
+                <label for="shape-stroke-width">Stroke Width:</label>
+                <input type="number" id="shape-stroke-width" min="1" max="10">
+                <label for="shape-rotation">Rotation:</label>
+                <input type="number" id="shape-rotation" min="0" max="360">
+            </div>
+            <button onclick="addFrame()">Add Frame</button>
+            <button onclick="applyChanges()">Apply Changes</button>
+            <button onclick="saveFrames()">Save</button>
+        </div>
+    </div>
+    <div id="object-selection-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeObjectSelectionModal()">&times;</span>
+            <h3>Select an Object</h3>
+            <div id="object-list">
+                <!-- List of objects will be populated here -->
+            </div>
+        </div>
+    </div>
+    <div id="insert-object-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeInsertObjectModal()">&times;</span>
+            <h3>Insert New Object</h3>
+            <label for="object-id">Object ID:</label>
+            <input type="text" id="object-id">
+            <label for="object-name">Name:</label>
+            <input type="text" id="object-name">
+            <label for="object-width">Width:</label>
+            <input type="number" id="object-width" value="50">
+            <label for="object-height">Height:</label>
+            <input type="number" id="object-height" value="50">
+            <label for="object-x">Position X:</label>
+            <input type="number" id="object-x" value="0">
+            <label for="object-y">Position Y:</label>
+            <input type="number" id="object-y" value="0">
+            <button onclick="insertObject()">Insert</button>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/events.js"></script>
+    <script src="js/actions.js"></script>
+</body>
+</html>
