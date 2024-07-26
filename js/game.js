@@ -37,3 +37,15 @@ function updateProperty(id, property, value) {
 function executeGame() {
     handleEvents({});  // Ensure `handleEvents` is called with a default event object
 }
+
+function getObjectById(id) {
+    return objects.find(obj => obj.id === id);
+}
+
+function moveObject(object, x, y) {
+    if (object) {
+        object.x = x;
+        object.y = y;
+        drawObjects();  // Assumindo que drawObjects redesenha todos os objetos no canvas
+    }
+}

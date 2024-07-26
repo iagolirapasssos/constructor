@@ -333,3 +333,44 @@ canvas {
 #execute-game-button:hover {
     background-color: #218838;
 }
+
+/* Estilo dos botões principais */
+#add-event-button, #add-action-button, #add-extension-button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+#add-event-button:hover, #add-action-button:hover, #add-extension-button:hover {
+    background-color: #218838;
+}
+
+/* Estilo para o modal de extensão */
+#extension-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background-color: #2c2c2c;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+
+/* Additional styles for the lists and modals */
+#event-list, #action-list, #events {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.modal-content {
+    max-height: 90%;
+    overflow-y: auto;
+}

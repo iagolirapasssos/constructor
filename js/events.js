@@ -6,6 +6,7 @@ const eventModal = document.getElementById("event-modal");
 const actionModal = document.getElementById("action-modal");
 
 let eventsList = [];
+let customEvents = []; // Lista para armazenar eventos carregados de extensões
 
 function initializeEvents() {
     addEventButton.addEventListener("click", function() {
@@ -23,121 +24,123 @@ function initializeEvents() {
     document.addEventListener("keydown", handleEvents);
 }
 
+const defaultEvents = [
+    {
+        name: "KeyPress",
+        code: "function KeyPress(eventData) { console.log('Key Pressed:', eventData.key); }",
+        description: "Triggered when a specific key is pressed.",
+        inputs: [
+            { label: "Key", name: "key", type: "text" }
+        ]
+    },
+    {
+        name: "Collision",
+        code: "function Collision(eventData) { console.log('Collision detected between', eventData.objectId1, 'and', eventData.objectId2); }",
+        description: "Triggered when two objects collide.",
+        inputs: [
+            { label: "Object ID 1", name: "objectId1", type: "text" },
+            { label: "Object ID 2", name: "objectId2", type: "text" }
+        ]
+    },
+    {
+        name: "Timer",
+        code: "function Timer(eventData) { console.log('Timer triggered after', eventData.interval, 'ms'); }",
+        description: "Triggered after a specific time interval.",
+        inputs: [
+            { label: "Interval (ms)", name: "interval", type: "number" }
+        ]
+    }
+];
+
+function createEventBlock(eventType, inputs) {
+    const eventBlock = document.createElement("div");
+    eventBlock.className = "event";
+
+    let eventHeader = `
+        <div class="event-header">
+            <span class="event-type">${eventType}</span>
+            <button onclick="deleteEvent(this)">Delete</button>
+            <button onclick="showAddSubEventModal(this)">Add Sub-Event</button>
+            <button onclick="showAddActionModal(this)">Add Action</button>
+        </div>
+    `;
+
+    let eventInputs = '';
+    inputs.forEach(input => {
+        eventInputs += `
+            <div class="event-input">
+                <label for="${input.name}">${input.label}:</label>
+                <input type="${input.type}" id="${input.name}" name="${input.name}">
+            </div>
+        `;
+    });
+
+    eventBlock.innerHTML = eventHeader + eventInputs;
+    return eventBlock;
+}
+
+function addEvent(eventType) {
+    const selectedEvent = findEventByName(eventType);
+    if (!selectedEvent) {
+        alert("Evento não encontrado.");
+        return;
+    }
+
+    const eventBlock = createEventBlock(eventType, selectedEvent.inputs);
+    eventsContainer.appendChild(eventBlock);
+    eventsList.push(eventBlock);
+}
+
+function findEventByName(eventName) {
+    const events = defaultEvents.concat(customEvents);
+    return events.find(event => event.name === eventName);
+}
+
 function handleEvents(e) {
     eventsList.forEach(eventBlock => {
         const eventType = eventBlock.querySelector(".event-type").textContent;
-        const objectId = eventBlock.querySelector(".event-object-id").textContent.replace("Object ID: ", "");
-        const targetObject = objects.find(obj => obj.id === objectId);
-        if (!targetObject) return;
+        const event = findEventByName(eventType);
 
-        if (eventType === "Key Press" && e && e.key && e.key.startsWith("Arrow")) {
-            processActions(eventBlock.querySelector(".actions-container").children, e, targetObject);
-        } else if (eventType === "Loop") {
-            const loopCountElement = eventBlock.querySelector(".loop-count");
-            const loopForeverElement = eventBlock.querySelector(".loop-forever");
-            const loopCount = loopCountElement ? parseInt(loopCountElement.value) : 1;
-            const loopForever = loopForeverElement ? loopForeverElement.checked : false;
-            if (loopForever) {
-                let stop = false;
-                while (!stop) {
-                    processActions(eventBlock.querySelector(".actions-container").children, e, targetObject, true);
-                }
-            } else {
-                for (let i = 0; i < loopCount; i++) {
-                    processActions(eventBlock.querySelector(".actions-container").children, e, targetObject, true);
-                }
+        if (event) {
+            const eventInputs = event.inputs.reduce((data, input) => {
+                data[input.name] = eventBlock.querySelector(`[name="${input.name}"]`).value;
+                return data;
+            }, {});
+
+            try {
+                const func = new Function('eventData', event.code.substring(event.code.indexOf('{') + 1, event.code.lastIndexOf('}')));
+                func(eventInputs);
+            } catch (err) {
+                console.error(`Error executing event ${eventType}:`, err);
             }
-        } else if (eventType === "Mouse Click" && e.type === "click") {
-            processActions(eventBlock.querySelector(".actions-container").children, e, targetObject);
-        } else if (eventType === "Timer") {
-            const timerDurationElement = eventBlock.querySelector(".timer-duration");
-            const timerDuration = timerDurationElement ? parseInt(timerDurationElement.value) : 1000;
-            setInterval(() => {
-                processActions(eventBlock.querySelector(".actions-container").children, e, targetObject);
-            }, timerDuration);
+        } else {
+            console.error(`Evento não encontrado: ${eventType}`);
         }
     });
     drawObjects(); // Redesenha todos os objetos após processar os eventos
 }
 
-function createEventBlock(eventType, objectId) {
-    const eventBlock = document.createElement("div");
-    eventBlock.className = "event";
-    const eventId = `event-${Date.now()}`;
-    let eventContent = `
-        <div class="event-header">
-            <span class="event-type">${eventType}</span>
-            <span class="event-object-id">Object ID: ${objectId}</span>
-            <button onclick="deleteEvent(this)">Delete</button>
-            <button onclick="showAddSubEventModal(this)">Add Sub-Event</button>
-            <button onclick="showAddActionModal(this)">Add Action</button>
-        </div>
-        <div class="sub-events-container"></div>
-        <div class="actions-container"></div>
-    `;
-    if (eventType === "Loop") {
-        eventContent += `
-            <div class="loop-settings">
-                <label for="${eventId}-loop-count">Repetitions:</label>
-                <input type="number" id="${eventId}-loop-count" class="loop-count" value="1" min="1">
-                <label for="${eventId}-loop-forever">
-                    <input type="checkbox" id="${eventId}-loop-forever" class="loop-forever"> Infinite
-                </label>
-            </div>
-        `;
-    } else if (eventType === "Timer") {
-        eventContent += `
-            <div class="timer-settings">
-                <label for="${eventId}-timer-duration">Duration (ms):</label>
-                <input type="number" id="${eventId}-timer-duration" class="timer-duration" value="1000" min="100">
-            </div>
-        `;
-    }
-    eventBlock.innerHTML = eventContent;
-
-    new Sortable(eventBlock.querySelector(".actions-container"), {
-        group: {
-            name: "actions",
-            put: true,
-            pull: true
-        },
-        animation: 150,
-        fallbackOnBody: true,
-        swapThreshold: 0.65
-    });
-    new Sortable(eventBlock.querySelector(".sub-events-container"), {
-        group: {
-            name: "events",
-            put: true,
-            pull: true
-        },
-        animation: 150,
-        fallbackOnBody: true,
-        swapThreshold: 0.65
-    });
-    return eventBlock;
-}
-
-function addEvent(eventType) {
-    const objectId = document.getElementById("event-object-id").value;
-    if (!objectId) {
-        alert("Please enter an Object ID");
+function populateEventList() {
+    const eventList = document.getElementById("event-list");
+    if (!eventList) {
+        console.error("Elemento da lista de eventos não encontrado.");
         return;
     }
-    const eventBlock = createEventBlock(eventType, objectId);
-    eventsContainer.appendChild(eventBlock);
-    eventsList.push(eventBlock);
-}
 
-function addSubEvent(parentEvent, eventType) {
-    const objectId = document.getElementById("event-object-id").value;
-    if (!objectId) {
-        alert("Please enter an Object ID");
-        return;
-    }
-    const subEventBlock = createEventBlock(eventType, objectId);
-    subEventBlock.className = "sub-event";
-    parentEvent.querySelector(".sub-events-container").appendChild(subEventBlock);
+    eventList.innerHTML = ''; // Limpa a lista de eventos antes de adicionar novos itens
+
+    const events = defaultEvents.concat(customEvents); // Supondo que você tenha eventos personalizados
+
+    events.forEach(event => {
+        const eventItem = document.createElement("div");
+        eventItem.className = "event-item";
+        eventItem.textContent = event.name;
+        eventItem.onclick = function() {
+            addEvent(event.name);
+            closeEventModal();
+        };
+        eventList.appendChild(eventItem);
+    });
 }
 
 function deleteEvent(button) {

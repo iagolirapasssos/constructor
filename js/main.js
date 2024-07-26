@@ -3,8 +3,8 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function initializeApp() {
-    initializeUI();
     initializeGame();
     initializeEvents();
     initializeActions();
+    initializeUI();
 }

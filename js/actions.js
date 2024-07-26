@@ -2,27 +2,70 @@ function initializeActions() {
     populateActionList();
 }
 
-function createActionBlock(actionType, objectId) {
+const defaultActions = [
+    {
+        name: "MoveObject",
+        code: "function MoveObject(actionData) { const object = getObjectById(actionData.objectId); if (object) { moveObject(object, actionData.x, actionData.y); console.log('Object moved to:', actionData.x, actionData.y); } }",
+        description: "Moves an object to the specified position.",
+        inputs: [
+            { label: "Object ID", name: "objectId", type: "text" },
+            { label: "X Position", name: "x", type: "number" },
+            { label: "Y Position", name: "y", type: "number" }
+        ]
+    },
+    {
+        name: "PlaySound",
+        code: "function PlaySound(actionData) { playSound(actionData.soundFile); console.log('Playing sound:', actionData.soundFile); }",
+        description: "Plays the specified sound file.",
+        inputs: [
+            { label: "Sound File", name: "soundFile", type: "text" }
+        ]
+    }
+];
+
+function createActionBlock(actionType, inputs) {
     const actionBlock = document.createElement("div");
     actionBlock.className = "action";
-    actionBlock.innerHTML = `
+
+    // Header da ação com nome e botão de deletar
+    let actionHeader = `
         <div class="action-header">
             <span class="action-type">${actionType}</span>
-            <span class="action-object-id">Object ID: ${objectId}</span>
             <button onclick="deleteAction(this)">Delete</button>
         </div>
     `;
+
+    // Adiciona os inputs para os parâmetros da ação
+    let actionInputs = '';
+    inputs.forEach(input => {
+        actionInputs += `
+            <div class="action-input">
+                <label for="${input.name}">${input.label}:</label>
+                <input type="${input.type}" id="${input.name}" name="${input.name}">
+            </div>
+        `;
+    });
+
+    actionBlock.innerHTML = actionHeader + actionInputs;
     return actionBlock;
 }
 
 function addAction(parentEvent, actionType) {
-    const objectId = document.getElementById("action-object-id").value;
-    if (!objectId) {
-        alert("Please enter an Object ID");
+    const selectedAction = findActionByName(actionType);
+    if (!selectedAction) {
+        alert("Ação não encontrada.");
         return;
     }
-    const actionsContainer = parentEvent.querySelector(".actions-container");
-    const actionBlock = createActionBlock(actionType, objectId);
+
+    let actionsContainer = parentEvent.querySelector(".actions-container");
+    if (!actionsContainer) {
+        console.error("Container de ações não encontrado. Criando um novo container...");
+        actionsContainer = document.createElement("div");
+        actionsContainer.className = "actions-container";
+        parentEvent.appendChild(actionsContainer);
+    }
+
+    const actionBlock = createActionBlock(actionType, selectedAction.inputs);
     actionsContainer.appendChild(actionBlock);
 }
 
@@ -36,24 +79,28 @@ function processActions(actionBlocks, e, targetObject, isLoop = false) {
     Array.from(actionBlocks).forEach((actionBlock, index) => {
         setTimeout(() => {
             const actionType = actionBlock.querySelector(".action-type").textContent;
-            const objectId = actionBlock.querySelector(".action-object-id").textContent.split(": ")[1];
-            if (targetObject.id !== objectId) return;
+            const action = findActionByName(actionType);
 
-            if (actionType === "Move Right") {
-                targetObject.x += 10;
-            } else if (actionType === "Move Left") {
-                targetObject.x -= 10;
-            } else if (actionType === "Move Up") {
-                targetObject.y -= 10;
-            } else if (actionType === "Move Down") {
-                targetObject.y += 10;
-            } else if (actionType === "Change Color") {
-                targetObject.color = '#' + Math.floor(Math.random() * 16777215).toString(16); // Random color
-            } else if (actionType === "Play Sound") {
-                const audio = new Audio('path/to/sound/file.mp3');
-                audio.play();
+            if (action) {
+                const actionInputs = action.inputs.reduce((data, input) => {
+                    data[input.name] = actionBlock.querySelector(`[name="${input.name}"]`).value;
+                    return data;
+                }, {});
+
+                try {
+                    const func = new Function('actionData', action.code.substring(action.code.indexOf('{') + 1, action.code.lastIndexOf('}')));
+                    func(actionInputs);
+                } catch (err) {
+                    console.error(`Error executing action ${actionType}:`, err);
+                }
+            } else {
+                console.error(`Ação não encontrada: ${actionType}`);
             }
-            drawObject(targetObject);
         }, delay * index);
     });
+}
+
+function findActionByName(actionName) {
+    const actions = defaultActions.concat(extensionActions);
+    return actions.find(action => action.name === actionName);
 }

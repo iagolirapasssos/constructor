@@ -1,0 +1,37 @@
+{
+    "description": "This is an example of an extension with events and actions.",
+    "version": "1.0",
+    "author": "Author Name",
+    "events": [
+        {
+            "name": "OnPlayerJump",
+            "code": "function OnPlayerJump(eventData) { const player = getObjectById(eventData.objectId); if (player && player.isOnGround) { player.jump(); console.log('Player Jumped'); } }",
+            "description": "Triggered when the player jumps."
+        },
+        {
+            "name": "OnEnemySpawn",
+            "code": "function OnEnemySpawn(eventData) { const enemy = spawnEnemy(eventData.spawnPoint); console.log('Enemy Spawned at:', eventData.spawnPoint); }",
+            "description": "Triggered when an enemy spawns in the game."
+        }
+    ],
+    "actions": [
+        {
+            "name": "MoveObject",
+            "code": "function MoveObject(actionData) { const object = getObjectById(actionData.objectId); if (object) { object.moveTo(actionData.x, actionData.y); console.log('Object moved to:', actionData.x, actionData.y); } }",
+            "description": "Moves an object to the specified position.",
+            "inputs": [
+                { "label": "Object ID", "name": "objectId", "type": "text" },
+                { "label": "X Position", "name": "x", "type": "number" },
+                { "label": "Y Position", "name": "y", "type": "number" }
+            ]
+        },
+        {
+            "name": "PlaySound",
+            "code": "function PlaySound(actionData) { playSound(actionData.soundFile); console.log('Playing sound:', actionData.soundFile); }",
+            "description": "Plays the specified sound file.",
+            "inputs": [
+                { "label": "Sound File", "name": "soundFile", "type": "text" }
+            ]
+        }
+    ]
+}
